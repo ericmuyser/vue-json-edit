@@ -1,109 +1,160 @@
 <template>
-  <div class="add-form pure-form">
+    <div class="add-form">
+        <div class="f-input">
+            <input
+                type="text"
+                v-model="keyName"
+                class="f-input-m"
+                placeholder="name"
+                v-if="needName"
+                @change="checkName"
+            >
 
-      <div class="f-input">
-        <input type="text" v-model="keyName" class="f-input-m" placeholder="name" v-if="needName">
-        <select v-model="formatSelected" class="f-input-m">
-            <option :value="item" v-for="(item, index) in formats" :key="item">{{item}}</option>
-        </select>
-        <span class="f-input-m"><b>:</b></span>
+            <select v-model="formatSelected" class="f-input-m" @change="checkName">
+                <option :value="format" v-for="format in formats" :key="format">{{format}}</option>
+            </select>
+
+            <span class="f-input-m" v-show="showColon"><b>:</b></span>
+
+            <template v-if="requireName">
+                <input
+                    type="text"
+                    v-model="valName" class="f-input-m"
+                    placeholder="value"
+                    v-if="formatSelected === 'string'"
+                >
+                <input
+                    type="number"
+                    v-model="valName"
+                    class="f-input-m"
+                    placeholder="value"
+                    v-if="formatSelected === 'number'" @change="numberType"
+                >
+                <select
+                    name="value"
+                    v-model="valName"
+                    class="f-input-m"
+                    v-if="formatSelected === 'boolean'"
+                    @change="booleanType"
+                >
+                    <option :value="true">true</option>
+                    <option :value="false">false</option>
+                </select>
+            </template>
+        </div>
 
         <!-- -- -->
-        <template v-if="formatSelected !='array' && formatSelected != 'object'">
-            <input type="text" v-model="valName" class="f-input-m" placeholder="value" v-if="formatSelected == 'string'">
-            <input type="number" v-model="valName" class="f-input-m" placeholder="value" v-if="formatSelected == 'number'" @change="dealNumber">
-            <select name="value" v-model="valName" class="f-input-m" v-if="formatSelected == 'boolean'" @change="dealBoolean">
-                <option :value="true">true</option>
-                <option :value="false">false</option>
-            </select>
-        </template>
-      </div>
-
-      <!-- -- -->
-      <div class="f-btns">
-        <button class="pure-button f-confirm" @click="confirm">确定</button>
-        <button class="pure-button" @click="cancel">取消</button>
-      </div>
-  </div>
+        <div class="f-btns">
+            <button class="f-confirm" @click="confirm" :disabled="disableConfirm">
+                <i class="fa fa-check"></i>
+            </button>
+            <button class="f-cancel" @click="cancel">
+                <i class="fa fa-times"></i>
+            </button>
+        </div>
+    </div>
 
 </template>
 
 <script>
-export default {
-    name: "ItemAddForm",
+  export default {
+    name: 'ItemAddForm',
+    components: {
+
+    },
     data: function() {
-        return {
-            formats: ["string", "array", "object", "number", "boolean"],
-            formatSelected: "string",
-            //--
-            keyName: "",
-            valName: ""
-        };
+      return {
+        formats: ['string', 'array', 'object', 'number', 'boolean'],
+        valueFormats: ['string', 'number', 'boolean'],
+        formatSelected: 'string',
+        keyName: '',
+        valName: '',
+        disableConfirm: this.needName,
+        showColon: true
+      };
     },
     props: {
-        needName: {
-            default: true
-        }
+      needName: {
+        default: true
+      }
     },
     methods: {
-        confirm: function() {
-            let val = null;
-            if (
-                this.formatSelected === "array" ||
-                this.formatSelected === "object"
-            ) {
-                val = [];
-            } else {
-                val = this.valName;
-            }
+      checkName: function()  {
+        this.showColon = this.valueFormats.includes(this.formatSelected);
+        this.disableConfirm = this.needName && this.keyName.length === 0
+      },
 
-            let objData = {
-                key: this.needName ? this.keyName : null,
-                val: val,
-                type: this.formatSelected
-            };
+      requireName: function()  {
+        return this.formatSelected !=='array' && this.formatSelected !== 'object'
+      },
 
-            this.$emit("confirm", objData);
-            this.keyName = "";
-            this.valName = "";
-            this.formatSelected = "string";
-        },
-
-        cancel: function() {
-            this.$emit("cancel");
-        },
-
-        dealBoolean: function() {
-            this.valName = Boolean(this.valName);
-        },
-
-        dealNumber: function() {
-            this.valName = Number(this.valName);
+      confirm: function() {
+        let val = null;
+        if (this.formatSelected === "array" || this.formatSelected === "object") {
+          val = [];
+        } else {
+          val = this.valName;
         }
+
+        const objData = {
+          key: this.needName ? this.keyName : null,
+          val: val,
+          type: this.formatSelected
+        };
+
+        this.$emit('confirm', objData);
+        this.keyName = '';
+        this.valName = '';
+        this.formatSelected = 'string';
+      },
+
+      cancel: function() {
+        this.$emit('cancel');
+      },
+
+      booleanType: function() {
+        this.valName = Boolean(this.valName);
+      },
+
+      numberType: function()  {
+        this.valName = Number(this.valName);
+      }
     }
-};
+  };
 </script>
 
 <style lang="less" scoped>
+    @import url('../node_modules/font-awesome/css/font-awesome.min.css');
 
-.f-input,
-.f-btns {
-    display: inline-block;
-}
+    .f-input, .f-btns {
+        display: inline-block;
+    }
 
-.f-btns {
-    display: inline-block;
-    margin-top: 0.5em;
-}
+    .f-btns {
+        display: inline-block;
+        margin-top: 0.5em;
+    }
 
-.f-confirm {
-    color: #fff;
-    background: #05a5d1;
-}
+    .f-confirm {
+        width: 30px;
+        color: #fff;
+        background: #5cb85c;
+        &:hover {
+            cursor: pointer;
+        }
+    }
 
-.add-form {
-    margin-bottom: 20px;
-    font-size: .6em;
-}
+    .f-cancel {
+        width: 30px;
+        color: #fff;
+        background: rgba(237, 28, 36, 0.56);
+        &:hover {
+            cursor: pointer;
+        }
+    }
 
+    .add-form {
+        margin-bottom: 20px;
+        font-size: 0.8em;
+    }
 </style>
