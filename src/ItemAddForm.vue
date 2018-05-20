@@ -59,9 +59,7 @@
 <script>
   export default {
     name: 'ItemAddForm',
-    components: {
 
-    },
     data: function() {
       return {
         formats: ['string', 'array', 'object', 'number', 'boolean'],
@@ -106,10 +104,12 @@
         this.keyName = '';
         this.valName = '';
         this.formatSelected = 'string';
+
+        this.$parent.hideEventListener(event)
       },
 
-      cancel: function() {
-        this.$emit('cancel');
+      cancel: function(event) {
+        this.$parent.hideEventListener(event)
       },
 
       booleanType: function() {
@@ -154,7 +154,18 @@
     }
 
     .add-form {
-        margin-bottom: 20px;
+        padding: 5px 5px 10px;
         font-size: 0.8em;
+    }
+
+    input, select {
+        border: 1px solid #ececec;
+        padding: 2px;
+        border-radius: 4px;
+        &:focus, &:hover, &:active {
+            text-decoration: none;
+            outline: none;
+            border-color: #ff0000;
+        }
     }
 </style>

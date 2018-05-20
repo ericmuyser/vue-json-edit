@@ -43,10 +43,24 @@
 
                 <template v-else>
                     <span class="val">
-                        <input type="text" v-model="item.remark" class="val-input" v-if="item.type === 'string'">
-                        <input type="number" v-model.number="item.remark" class="val-input"
-                               v-if="item.type === 'number'">
-                        <select name="value" v-model="item.remark" class="val-input" v-if="item.type === 'boolean'">
+                        <input
+                            type="text"
+                            v-model="item.remark"
+                            class="val-input"
+                            v-if="item.type === 'string'"
+                        >
+                        <input
+                            type="number"
+                            v-model.number="item.remark"
+                            class="val-input"
+                            v-if="item.type === 'number'"
+                        >
+                        <select
+                            name="value"
+                            v-model="item.remark"
+                            class="val-input"
+                            v-if="item.type === 'boolean'"
+                        >
                             <option :value="true">true</option>
                             <option :value="false">false</option>
                         </select>
@@ -55,11 +69,13 @@
             </span>
         </span>
 
-        <item-add-form v-if="toAddItem" @confirm="newItem" @cancel="cancelNewItem"></item-add-form>
-
-        <div class="block add-key" @click="addItem" v-if="!toAddItem">
+        <div class="block add-key" v-popover="{ name: popoverKey }">
             <i class="fa fa-plus"></i>
         </div>
+        <popover :name="popoverKey" width="auto" :pointer="false">
+            <item-add-form @confirm="newItem"></item-add-form>
+        </popover>
+
     </div>
 </template>
 
@@ -69,12 +85,18 @@
   export default {
     name: 'JsonView',
     props: {parsedData: {}},
+
     data: function () {
       return {
         flowData: [],
         toAddItem: false,
-        hideMyBlock: {}
+        hideMyBlock: {},
+        popoverKey: null,
       }
+    },
+
+    beforeMount() {
+      this.popoverKey = this.generateKey();
     },
 
     created: function () {
@@ -84,6 +106,7 @@
     components: {
       'item-add-form': ItemAddForm
     },
+
     methods: {
       delItem: function (parentDom, item, index) {
         this.flowData = this.flowData.rmIndex(index);
@@ -95,12 +118,8 @@
         this.$set(this.hideMyBlock, index, !this.hideMyBlock[index])
       },
 
-      addItem: function () {
-        this.toAddItem = true
-      },
-
-      cancelNewItem: function () {
-        this.toAddItem = false
+      generateKey: function () {
+        return '_' + Math.random().toString(36).substr(2, 9);
       },
 
       newItem: function (obj) {
@@ -119,7 +138,6 @@
 
         this.flowData.push(oj);
         this.$emit('input', this.flowData);
-        this.cancelNewItem()
       },
 
       keyInputBlur: function (item, e) {

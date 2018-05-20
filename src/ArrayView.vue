@@ -70,11 +70,12 @@
             </li>
         </ol>
 
-        <item-add-form v-if="toAddItem" @confirm="newItem" @cancel="cancelNewItem" :needName="false"></item-add-form>
-
-        <div class="block add-key" v-if="!toAddItem" @click="addItem">
+        <div class="block add-key" v-popover="{ name: popoverKey }">
             <i class="fa fa-plus"></i>
         </div>
+        <popover :name="popoverKey" width="auto" :pointer="false">
+            <item-add-form @confirm="newItem" :needName="false"></item-add-form>
+        </popover>
     </div>
 </template>
 
@@ -84,29 +85,29 @@
   export default {
     name: 'ArrayView',
     props: ['parsedData'],
+
     data: function () {
       return {
-        'flowData': this.parsedData,
-        'toAddItem': false,
-        'hideMyItem': {}
+        flowData: this.parsedData,
+        toAddItem: false,
+        hideMyItem: {},
+        popoverKey: null,
       }
     },
+
     components: {
       'item-add-form': ItemAddForm
     },
+
+    beforeMount() {
+      this.popoverKey = this.generateKey();
+    },
+
     methods: {
       delItem: function (parentDom, item, index) {
         this.flowData = this.flowData.rmIndex(index);
         if (this.hideMyItem[index]) this.hideMyItem[index] = false;
         this.$emit('input', this.flowData)
-      },
-
-      addItem: function () {
-        this.toAddItem = true
-      },
-
-      cancelNewItem: function () {
-        this.toAddItem = false
       },
 
       closeBlock: function (index, e) {
@@ -130,8 +131,11 @@
 
         this.flowData.push(oj);
         this.$emit('input', this.flowData);
-        this.cancelNewItem()
-      }
+      },
+
+      generateKey: function () {
+        return '_' + Math.random().toString(36).substr(2, 9);
+      },
     }
   }
 
