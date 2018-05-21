@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Json Editor</title>
+    <title>JSON Editor</title>
     <style>
       body {
         font-size: 14px;
@@ -36,15 +36,45 @@
         margin: 0 auto;
         max-width: 1200px;
         padding: 0 20px;
+        display: flex;
+      }
+
+      .code-pre, .code-content, pre, code {
+        height: 100%;
+      }
+
+      code {
+        border-left: 1px solid #ccc;
+      }
+
+      .w-1 {
+        float: left;
+        width: 60%;
+        flex-wrap: wrap;
       }
 
       .w-2 {
         float: left;
-        width: 50%;
+        width: 40%;
+        flex-wrap: wrap;
       }
 
       .editor {
         padding: 20px 60px;
+      }
+
+      .add-form input, .add-form select {
+        border: 1px solid #ececec;
+        padding: 2px;
+        border-radius: 2px;
+      }
+
+      .add-form input:focus, .add-form select:focus,
+      .add-form input:hover, .add-form select:hover,
+      .add-form input:active, .add-form select:active {
+        text-decoration: none;
+        outline: none;
+        border-color: #ff0000;
       }
 
 

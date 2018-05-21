@@ -1,15 +1,15 @@
 <template>
     <div class="j-w">
-        <h1 class="t">Vue-Json-Edit</h1>
+        <h1 class="t">JSON Editor</h1>
         <div class="editor-w clearfix">
-            <div class="w-2">
+            <div class="w-1">
                 <div class="editor">
                     <JsonEditor :objData="jsonData" v-model="jsonData"></JsonEditor>
                 </div>
             </div>
             <div class="w-2">
                 <div class="code-pre">
-                    <div slot="content">
+                    <div class="code-content" slot="content">
 						<pre>
 							<code class="json" id="res_code"></code>
 						</pre>
@@ -33,25 +33,20 @@
             type: 'users',
             attributes: {
               title: 'Mr',
-              first_name: 'Toyin',
-              last_name: 'Butler',
-              full_name: 'Mr Toyin Butler',
-              email: 'toyin@socrates.systems',
-              phone1: '0844 333 2222',
-              phone2: '0207 888 9999',
-              position: 'Lead Developer',
+              first_name: 'Larry',
+              last_name: 'Lamb',
+              email: 'larry@lamb.com',
+              phone: '0844 333 2222',
               address: {
                 line1: 'Unit 6B',
-                line2: 'Limes Court',
-                line3: 'Conduit Lane',
-                town: 'Hoddesdon',
-                county: 'Hertfordshire',
-                postcode: 'EN11 8EP',
+                line2: 'The Hawthorns',
+                line3: 'Paisley Gardens',
+                town: 'Wimbleworth',
+                county: 'Forthshire',
+                postcode: 'WM11 7NX',
                 country: 'GB',
               },
               status: 'active',
-              public: false,
-              max_referral_limit: 0,
               metadata: {},
               created_at: '2018-05-19T14:21:33+00:00',
               updated_at: '2018-05-19T14:21:33+00:00'

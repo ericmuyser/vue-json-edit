@@ -157,15 +157,4 @@
         padding: 5px 5px 10px;
         font-size: 0.8em;
     }
-
-    input, select {
-        border: 1px solid #ececec;
-        padding: 2px;
-        border-radius: 4px;
-        &:focus, &:hover, &:active {
-            text-decoration: none;
-            outline: none;
-            border-color: #ff0000;
-        }
-    }
 </style>
