@@ -99,7 +99,7 @@
       'item-add-form': ItemAddForm
     },
 
-    beforeMount() {
+    beforeMount: function() {
       this.popoverKey = this.generateKey();
     },
 

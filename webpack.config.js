@@ -1,6 +1,7 @@
 const webpack = require('webpack');
 const config = require('./webpack.base.config');
 const path = require('path');
+const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 
 config.entry = './src/index.js';
 config.output = {
@@ -19,12 +20,7 @@ config.plugins = (config.plugins || []).concat([
       NODE_ENV: JSON.stringify('production'),
     },
   }),
-  new webpack.optimize.UglifyJsPlugin({
-    sourceMap: false,
-    compress: {
-      warnings: false,
-    },
-    comments: false,
+  new UglifyJSPlugin({
   }),
 ]);
 module.exports = config;

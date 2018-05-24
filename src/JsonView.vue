@@ -95,7 +95,7 @@
       }
     },
 
-    beforeMount() {
+    beforeMount: function () {
       this.popoverKey = this.generateKey();
     },
 
