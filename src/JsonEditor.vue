@@ -7,14 +7,17 @@
   export default {
     name: 'JsonEditor',
     props: {'objData': {required: true}},
+
     data: function () {
       return {
         'parsedData': [],
       }
     },
+
     created: function () {
       this.parsedData = this.jsonParse(this.objData)
     },
+
     watch: {
       'parsedData': {
         handler(newValue, oldValue) {
@@ -23,13 +26,14 @@
         deep: true
       }
     },
+
     methods: {
       jsonParse: function (jsonStr) {
 
         let parseJson = (json) => {
           let result = [];
           let keys = Object.keys(json);
-          keys.forEach((k, index) => {
+          keys.forEach((k) => {
             let val = json[k];
             let parsedVal = val;
 

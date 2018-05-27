@@ -26,6 +26,11 @@
   export default {
     name: 'app',
 
+    mounted: function () {
+      this.resCode = this.$refs.resCode;
+      this.drawResCode(this.formatJson(JSON.stringify(this.jsonData)));
+    },
+
     data() {
       return {
         jsonData: {
@@ -59,8 +64,7 @@
     watch: {
       'jsonData':
         function () {
-          let c = this.formatJson(JSON.stringify(this.jsonData));
-          this.drawResCode(c)
+          this.drawResCode(this.formatJson(JSON.stringify(this.jsonData)))
         }
     },
 
@@ -139,10 +143,6 @@
       }
       ,
     },
-    mounted: function () {
-      this.resCode = this.$refs.resCode;
-      this.drawResCode(this.formatJson(JSON.stringify(this.jsonData)));
-    }
   }
 </script>
 

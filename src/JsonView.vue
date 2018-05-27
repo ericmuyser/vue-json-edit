@@ -73,7 +73,11 @@
             <i class="fa fa-plus"></i>
         </div>
         <popover :name="popoverKey" :pointer="false" :class="viewType">
-            <item-add-form @confirm="newItem" @popoverView="popoverClass"></item-add-form>
+            <item-add-form
+                @confirm="newItem"
+                @popoverView="popoverClass"
+                :existingNames="flowDataKeys"
+            ></item-add-form>
         </popover>
 
     </div>
@@ -92,7 +96,8 @@
         toAddItem: false,
         hideMyBlock: {},
         popoverKey: null,
-        viewType: 'full'
+        viewType: 'full',
+        flowDataKeys: [],
       }
     },
 
@@ -103,6 +108,9 @@
 
     created: function () {
       this.flowData = this.parsedData;
+      this.flowData.map((obj) => {
+        this.flowDataKeys.push(obj.name)
+      })
     },
 
     components: {
@@ -139,6 +147,11 @@
         }
 
         this.flowData.push(oj);
+
+        if (oj.name) {
+          this.flowDataKeys.push(oj.name);
+        }
+
         this.$emit('input', this.flowData);
       },
 

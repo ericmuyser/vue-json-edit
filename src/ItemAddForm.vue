@@ -5,9 +5,9 @@
                 type="text"
                 v-model="keyName"
                 class="f-input-m"
-                placeholder="name"
+                placeholder="key"
                 v-if="needName"
-                @change="checkName"
+                @keyup="checkName"
             >
 
             <select v-model="formatSelected" class="f-input-m" @change="checkName">
@@ -69,19 +69,32 @@
         valName: '',
         disableConfirm: this.needName,
         showColon: true,
-        requireNameWarning: 'A name is required',
+        requireNameWarning: 'A key is required',
       };
     },
     props: {
       needName: {
         default: true
+      },
+      existingNames: {
+        default: []
       }
     },
     methods: {
       checkName: function()  {
         this.showColon = this.valueFormats.includes(this.formatSelected);
+
+        // Check for a key
         this.disableConfirm = this.needName && this.keyName.length === 0;
-        this.requireNameWarning = this.disableConfirm ? 'A name is required' : 'Save';
+        this.requireNameWarning = this.disableConfirm ? 'A key is required' : 'Add';
+
+        // Check for duplicate keys
+        if (this.keyName.length > 0 && this.existingNames.includes(this.keyName)) {
+          this.disableConfirm = true;
+          this.requireNameWarning = 'Duplicate key is not allowed';
+        }
+
+        // Check type for formatting
         if (this.formatSelected === 'boolean') {
           this.$emit('popoverView', 'boolean');
         } else {
