@@ -45,10 +45,10 @@
 
         <!-- -- -->
         <div class="f-btns">
-            <button class="f-confirm" @click="confirm" :disabled="disableConfirm">
+            <button class="f-confirm" @click="confirm" :disabled="disableConfirm" :title="requireNameWarning">
                 <i class="fa fa-check"></i>
             </button>
-            <button class="f-cancel" @click="cancel">
+            <button class="f-cancel" @click="cancel" title="Cancel">
                 <i class="fa fa-times"></i>
             </button>
         </div>
@@ -68,7 +68,8 @@
         keyName: '',
         valName: '',
         disableConfirm: this.needName,
-        showColon: true
+        showColon: true,
+        requireNameWarning: 'A name is required',
       };
     },
     props: {
@@ -79,7 +80,13 @@
     methods: {
       checkName: function()  {
         this.showColon = this.valueFormats.includes(this.formatSelected);
-        this.disableConfirm = this.needName && this.keyName.length === 0
+        this.disableConfirm = this.needName && this.keyName.length === 0;
+        this.requireNameWarning = this.disableConfirm ? 'A name is required' : 'Save';
+        if (this.formatSelected === 'boolean') {
+          this.$emit('popoverView', 'boolean');
+        } else {
+          this.$emit('popoverView', this.showColon ? 'full' : 'array');
+        }
       },
 
       requireName: function()  {

@@ -70,11 +70,11 @@
             </li>
         </ol>
 
-        <div class="block add-key" v-popover="{ name: popoverKey }">
+        <div class="block add-key" v-popover="{ name: popoverKey }" @click="viewType = 'array-full'">
             <i class="fa fa-plus"></i>
         </div>
-        <popover :name="popoverKey" width="auto" :pointer="false">
-            <item-add-form @confirm="newItem" :needName="false"></item-add-form>
+        <popover :name="popoverKey" :pointer="false" :class="viewType">
+            <item-add-form @confirm="newItem" @popoverView="popoverClass" :needName="false"></item-add-form>
         </popover>
     </div>
 </template>
@@ -92,6 +92,7 @@
         toAddItem: false,
         hideMyItem: {},
         popoverKey: null,
+        viewType: 'array-full'
       }
     },
 
@@ -135,6 +136,10 @@
 
       generateKey: function () {
         return '_' + Math.random().toString(36).substr(2, 9);
+      },
+
+      popoverClass: function (className) {
+        this.viewType = 'array-' + className;
       },
     }
   }

@@ -63,12 +63,18 @@
 
       .editor {
         padding: 20px 60px;
+        position: relative;
       }
 
       .add-form input, .add-form select {
         border: 1px solid #ececec;
-        padding: 2px;
+        padding: 2px 4px;
         border-radius: 2px;
+        height: 16px
+      }
+
+      .add-form select {
+        height: 22px;
       }
 
       .add-form input:focus, .add-form select:focus,
@@ -79,6 +85,46 @@
         border-color: #ff0000;
       }
 
+      .f-confirm, .f-cancel {
+        border: 0 none;
+        height: 22px;
+      }
+
+      .f-confirm, .f-cancel,
+      .f-confirm:focus, .f-cancel:focus,
+      .f-confirm:active, .f-cancel:active {
+        outline: 0 none;
+      }
+
+      .vue-popover[style] {
+        left: 10px !important;
+        border-radius: 2px !important;
+        z-index: 3000;
+      }
+
+      .vue-popover.full {
+        width: 533px !important;
+      }
+
+      .vue-popover.array {
+        width: 343px !important;;
+      }
+
+      .vue-popover.boolean {
+        width: 413px !important;;
+      }
+
+      .vue-popover.array-full {
+        width: 353px !important;
+      }
+
+      .vue-popover.array-array {
+        width: 163px !important;;
+      }
+
+      .vue-popover.array-boolean {
+        width: 233px !important;;
+      }
 
       </style>
   </head>

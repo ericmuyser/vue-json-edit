@@ -11,7 +11,7 @@
                 <div class="code-pre">
                     <div class="code-content" slot="content">
 						<pre>
-							<code class="json" id="res_code"></code>
+							<code class="json" ref="resCode"></code>
 						</pre>
                     </div>
                 </div>
@@ -25,6 +25,7 @@
 
   export default {
     name: 'app',
+
     data() {
       return {
         jsonData: {
@@ -133,15 +134,14 @@
       },
 
       drawResCode: function (content) {
-        let target = document.getElementById('res_code');
-        target.textContent = content;
-        hljs.highlightBlock(target)
+        this.resCode.textContent = content;
+        hljs.highlightBlock(this.resCode)
       }
       ,
     },
     mounted: function () {
-      let c = this.formatJson(JSON.stringify(this.jsonData));
-      this.drawResCode(c)
+      this.resCode = this.$refs.resCode;
+      this.drawResCode(this.formatJson(JSON.stringify(this.jsonData)));
     }
   }
 </script>

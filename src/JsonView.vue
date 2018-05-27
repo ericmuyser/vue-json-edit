@@ -69,11 +69,11 @@
             </span>
         </span>
 
-        <div class="block add-key" v-popover="{ name: popoverKey }">
+        <div class="block add-key" v-popover="{ name: popoverKey }" @click="viewType = 'full'">
             <i class="fa fa-plus"></i>
         </div>
-        <popover :name="popoverKey" width="auto" :pointer="false">
-            <item-add-form @confirm="newItem"></item-add-form>
+        <popover :name="popoverKey" :pointer="false" :class="viewType">
+            <item-add-form @confirm="newItem" @popoverView="popoverClass"></item-add-form>
         </popover>
 
     </div>
@@ -92,15 +92,17 @@
         toAddItem: false,
         hideMyBlock: {},
         popoverKey: null,
+        viewType: 'full'
       }
     },
 
     beforeMount: function () {
       this.popoverKey = this.generateKey();
+      this.viewType = 'full';
     },
 
     created: function () {
-      this.flowData = this.parsedData
+      this.flowData = this.parsedData;
     },
 
     components: {
@@ -148,7 +150,11 @@
 
         console.debug(item);
         console.debug(e);
-      }
+      },
+
+      popoverClass: function (className) {
+        this.viewType = className;
+      },
     }
   }
 
