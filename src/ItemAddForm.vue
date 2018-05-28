@@ -77,7 +77,7 @@
         default: true
       },
       existingNames: {
-        default: []
+        default: function () { return [] }
       }
     },
     methods: {
