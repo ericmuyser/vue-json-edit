@@ -19,7 +19,15 @@ const install = (Vue) => {
   Array.prototype.rmIndex = function (index) {
 	  this.splice(index, 1);
 	  return this
-	}
+	};
+
+	Array.prototype.rmItem = function (item) {
+    const i = this.indexOf(item);
+    if (i !== -1) {
+      this.rmIndex(i)
+    }
+    return this
+  }
 };
 
 export default install

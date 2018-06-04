@@ -120,6 +120,7 @@
     methods: {
       delItem: function (parentDom, item, index) {
         this.flowData = this.flowData.rmIndex(index);
+        this.flowDataKeys = this.flowDataKeys.rmItem(item.name);
         if (this.hideMyBlock[index]) this.hideMyBlock[index] = false;
         this.$emit('input', this.flowData)
       },
