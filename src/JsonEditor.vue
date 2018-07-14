@@ -99,6 +99,10 @@
       },
 
       getType: function (obj) {
+        if(obj === null) {
+          return 'null';
+        }
+
         switch (Object.prototype.toString.call(obj)) {
           case '[object Array]':
             return 'array';

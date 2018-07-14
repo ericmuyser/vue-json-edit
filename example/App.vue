@@ -53,9 +53,10 @@
                 country: 'GB',
               },
               status: 'active',
-              metadata: {},
+              avatar: null,
               created_at: '2018-05-19T14:21:33+00:00',
-              updated_at: '2018-05-19T14:21:33+00:00'
+              updated_at: '2018-05-19T14:21:33+00:00',
+              metadata: {}
             }
           }
         }
@@ -98,7 +99,7 @@
 
           if (value && value.constructor === Array) {
             draw.push(
-              tab + (formObj ? '"' + name + '":' : "") + "[" + line
+              tab + (formObj ? '"' + name + '": ' : "") + "[" + line
             );
 
             for (let i = 0; i < value.length; i++)
@@ -108,7 +109,7 @@
             );
           } else if (value && typeof value === "object") {
             draw.push(
-              tab + (formObj ? '"' + name + '":' : "") + "{" + line
+              tab + (formObj ? '"' + name + '": ' : "") + "{" + line
             );
 
             let len = 0,
@@ -125,7 +126,7 @@
 
             draw.push(
               tab +
-              (formObj ? '"' + name + '":' : "") +
+              (formObj ? '"' + name + '": ' : "") +
               value +
               (isLast ? "" : ",") +
               line

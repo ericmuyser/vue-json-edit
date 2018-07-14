@@ -62,7 +62,7 @@
 
     data: function() {
       return {
-        formats: ['string', 'array', 'object', 'number', 'boolean'],
+        formats: ['string', 'array', 'object', 'number', 'boolean', 'null'],
         valueFormats: ['string', 'number', 'boolean'],
         formatSelected: 'string',
         keyName: '',
@@ -108,8 +108,10 @@
 
       confirm: function() {
         let val = null;
-        if (this.formatSelected === "array" || this.formatSelected === "object") {
+        if (this.formatSelected === 'array' || this.formatSelected === 'object') {
           val = [];
+        } else if (this.formatSelected === 'null') {
+          val = null
         } else {
           val = this.valName;
         }

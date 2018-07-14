@@ -1,8 +1,8 @@
 {
   "name": "vue-json-edit",
-  "version": "1.1.7",
-  "description": "visual JSON editor built as an vue component",
-  "author": "Jinkin1995 <jinkin1995@gmail.com>",
+  "version": "2.0.0",
+  "description": "JSON editor vue component",
+  "author": "Jinkin1995 <jinkin1995@gmail.com>, Toyinster <toyin.butler@gmail.com>",
   "scripts": {
     "dev": "webpack-dev-server --watch --progress --config webpack.example.js --open --hot --host 127.0.0.1",
     "example": "rm -rf ./example/dist/*.js && rm -rf ./example/dist/*.html && webpack --progress --config webpack.example.js",
@@ -14,7 +14,7 @@
     "build example": "rimraf docs && webpack --progress --config webpack.example.js"
   },
   "keywords": [
-    "Vue",
+    "vue",
     "json"
   ],
   "main": "./src/index.js",
