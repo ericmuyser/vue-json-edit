@@ -11,7 +11,7 @@ config.output = {
   libraryTarget: 'umd',
 };
 config.externals = {
-  vue: 'Vue',
+  vue: 'vue',
 };
 
 config.plugins = (config.plugins || []).concat([
