@@ -4,26 +4,12 @@
   "description": "JSON editor vue component",
   "author": "Jinkin1995 <jinkin1995@gmail.com>, Toyinster <toyin.butler@gmail.com>",
   "scripts": {
-    "dev": "webpack-dev-server --watch --progress --config webpack.example.js --open --hot --host 127.0.0.1",
-    "example": "rm -rf ./example/dist/*.js && rm -rf ./example/dist/*.html && webpack --progress --config webpack.example.js",
-    "build": "webpack --progress --config webpack.config.js",
-    "lint": "eslint --ext .js,.vue src",
-    "release": "npm version patch && npm publish",
-    "dashboard": "webpack-dashboard -- webpack-dev-server --watch --progress --config webpack.example.js --open --hot --host 0.0.0.0",
-    "analyze": "rimraf dist && webpack --json | webpack-bundle-size-analyzer",
-    "build example": "rimraf docs && webpack --progress --config webpack.example.js"
   },
   "keywords": [
     "vue",
     "json"
   ],
-  "main": "./src/index.js",
   "module": "./dist/vue-json-edit.js",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Toyinster/vue-json-edit.git"
-  },
-  "homepage": "https://github.com/Toyinster/vue-json-edit",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/Toyinster/vue-json-edit/issues"
